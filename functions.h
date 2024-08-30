@@ -56,6 +56,40 @@ void encryptFile(std::string inputFN, std::string outputFN, rand_T seed=0){
 }
 
 int encryptDriver(int argc, char** argv){
+    std::string str="";
+
+    for(int argumentIdx=1;argumentIdx<argc;argumentIdx++){    //set up program arguments
+        std::cout<<argumentIdx+1<<":"<<argv[argumentIdx]<<"\n";
+
+        if(argv[argumentIdx]==std::string("-h")){  //help
+            argumentIdx++;
+            /**
+                TODO: check for specified commands
+                if none, general command list, what they do, etc.
+            */
+            break;
+        }
+
+        if(argv[argumentIdx]==std::string("-k")){  //-k denotes the keys
+            argumentIdx++;
+            //key=argv[a]-'0';
+            continue;
+        }
+
+        if(argv[argumentIdx]==std::string("-s")){  //
+            argumentIdx++;
+            str=argv[argumentIdx];
+            continue;
+        }
+       std::cout<<""<<"\n";
+    }
+
+    std::cout<<str<<std::endl;
+    encryptFile(str, "data/output");
+    encryptFile("data/output", "data/outputReversed");  //Test reversability
+
+    return 0;
+}
 
 int encryptDriver2(int argc, char** argv){
         string in="",out="output";
@@ -111,40 +145,6 @@ int encryptDriver2(int argc, char** argv){
             in[a]^=rnd()%256;
         cout<<in<<endl;
     }
-}
-    std::string str="";
-
-    for(int argumentIdx=1;argumentIdx<argc;argumentIdx++){    //set up program arguments
-        std::cout<<argumentIdx+1<<":"<<argv[argumentIdx]<<"\n";
-
-        if(argv[argumentIdx]==std::string("-h")){  //help
-            argumentIdx++;
-            /**
-                TODO: check for specified commands
-                if none, general command list, what they do, etc.
-            */
-            break;
-        }
-
-        if(argv[argumentIdx]==std::string("-k")){  //-k denotes the keys
-            argumentIdx++;
-            //key=argv[a]-'0';
-            continue;
-        }
-
-        if(argv[argumentIdx]==std::string("-s")){  //
-            argumentIdx++;
-            str=argv[argumentIdx];
-            continue;
-        }
-       std::cout<<""<<"\n";
-    }
-
-    std::cout<<str<<std::endl;
-    encryptFile(str, "data/output");
-    encryptFile("data/output", "data/outputReversed");  //Test reversability
-
-    return 0;   ///TODO: GUI
 }
 
 void encryptTest(std::string str, std::function<std::string(std::string, PRNG&)> func, rand_T startSeed=0){
